@@ -57,3 +57,16 @@ In the supplied snapshot, **7 of 20 products** satisfy Stock <= Reorder Level. C
 ## Portfolio description
 
 Built an inventory monitoring prototype using Excel, OneDrive, Make and Gmail, with scheduled stock checks, product-specific reorder thresholds and daily alert tracking.
+Testing and planned use
+
+Self-testing — my embroidery project
+
+I tested the system with products and supplies from my own embroidery project. I entered their quantities in Excel and set a reorder level for each item. When I tested a low-stock item, the system sent an email and updated its Last Alert Date. I also checked that running it again on the same day didn’t send another alert for that item.
+
+Stock quantities still need to be updated manually, so the alerts depend on keeping the spreadsheet up to date.
+
+Planned trial — a friend’s family shop
+
+I plan to try the system in my friend’s father’s shop to see how useful it is in daily work. The first trial would use manual stock updates in Excel. Connecting it to the shop’s cashier system would need more work, depending on whether its software can export sales data or connect to other tools.
+
+This trial has not started yet.
