@@ -1,0 +1,1284 @@
+{
+  "name": "Smart Inventory - Auto Stock Monitoring",
+  "flow": [
+    {
+      "id": 6,
+      "module": "microsoft-excel:listWorksheetRows",
+      "version": 2,
+      "parameters": {},
+      "mapper": {
+        "select": "legacy",
+        "emptyRow": false,
+        "limit": "22",
+        "selectB": "my",
+        "workbook": "/Smart Inventory System.xlsx",
+        "worksheet": "Products"
+      },
+      "metadata": {
+        "designer": {
+          "x": 343,
+          "y": 139
+        },
+        "setupValidation": {
+          "version": 1,
+          "configuration": "1cbc46079cad76ec",
+          "result": {
+            "valid": true,
+            "fields": []
+          }
+        },
+        "restore": {
+          "parameters": {},
+          "expect": {
+            "select": {
+              "label": "Select from the list"
+            },
+            "selectB": {
+              "label": "My Drive"
+            },
+            "workbook": {
+              "path": [
+                "Smart Inventory System.xlsx"
+              ]
+            },
+            "worksheet": {
+              "mode": "chose",
+              "label": "Products"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "__IMTCONN__",
+            "type": "account:azure",
+            "label": "Connection",
+            "required": true
+          }
+        ],
+        "expect": [
+          {
+            "name": "select",
+            "type": "select",
+            "label": "Select a method",
+            "required": true,
+            "validate": {
+              "enum": [
+                "manually",
+                "legacy"
+              ]
+            }
+          },
+          {
+            "name": "emptyRow",
+            "type": "boolean",
+            "label": "Skip All Rows After a Blank Row",
+            "required": true
+          },
+          {
+            "name": "limit",
+            "type": "uinteger",
+            "label": "Limit"
+          },
+          {
+            "name": "selectB",
+            "type": "select",
+            "label": "Choose your OneDrive location",
+            "required": true,
+            "validate": {
+              "enum": [
+                "my",
+                "site",
+                "group"
+              ]
+            }
+          },
+          {
+            "name": "workbook",
+            "type": "file",
+            "label": "Workbook",
+            "required": true
+          },
+          {
+            "name": "worksheet",
+            "type": "select",
+            "label": "Worksheet name",
+            "required": true
+          }
+        ],
+        "interface": [
+          {
+            "name": "__IMTLENGTH__",
+            "label": "Total number of bundles",
+            "type": "uinteger"
+          },
+          {
+            "name": "__IMTINDEX__",
+            "label": "Bundle order position",
+            "type": "uinteger"
+          },
+          {
+            "name": "id",
+            "type": "text",
+            "label": "Row ID"
+          },
+          {
+            "name": "row",
+            "type": "collection",
+            "label": "Row",
+            "spec": [
+              {
+                "label": "(A): Product ID",
+                "name": "a",
+                "type": "collection",
+                "spec": [
+                  {
+                    "name": "formula",
+                    "type": "text",
+                    "label": "Formula"
+                  },
+                  {
+                    "name": "formulaLocal",
+                    "type": "text",
+                    "label": "Formula Local"
+                  },
+                  {
+                    "name": "numberFormat",
+                    "type": "text",
+                    "label": "Number Format"
+                  },
+                  {
+                    "name": "text",
+                    "type": "text",
+                    "label": "Text"
+                  },
+                  {
+                    "name": "value",
+                    "type": "text",
+                    "label": "Value"
+                  },
+                  {
+                    "name": "valueType",
+                    "type": "text",
+                    "label": "Value Type"
+                  }
+                ]
+              },
+              {
+                "label": "(B): Product Name",
+                "name": "b",
+                "type": "collection",
+                "spec": [
+                  {
+                    "name": "formula",
+                    "type": "text",
+                    "label": "Formula"
+                  },
+                  {
+                    "name": "formulaLocal",
+                    "type": "text",
+                    "label": "Formula Local"
+                  },
+                  {
+                    "name": "numberFormat",
+                    "type": "text",
+                    "label": "Number Format"
+                  },
+                  {
+                    "name": "text",
+                    "type": "text",
+                    "label": "Text"
+                  },
+                  {
+                    "name": "value",
+                    "type": "text",
+                    "label": "Value"
+                  },
+                  {
+                    "name": "valueType",
+                    "type": "text",
+                    "label": "Value Type"
+                  }
+                ]
+              },
+              {
+                "label": "(C): Category",
+                "name": "c",
+                "type": "collection",
+                "spec": [
+                  {
+                    "name": "formula",
+                    "type": "text",
+                    "label": "Formula"
+                  },
+                  {
+                    "name": "formulaLocal",
+                    "type": "text",
+                    "label": "Formula Local"
+                  },
+                  {
+                    "name": "numberFormat",
+                    "type": "text",
+                    "label": "Number Format"
+                  },
+                  {
+                    "name": "text",
+                    "type": "text",
+                    "label": "Text"
+                  },
+                  {
+                    "name": "value",
+                    "type": "text",
+                    "label": "Value"
+                  },
+                  {
+                    "name": "valueType",
+                    "type": "text",
+                    "label": "Value Type"
+                  }
+                ]
+              },
+              {
+                "label": "(D): Cost",
+                "name": "d",
+                "type": "collection",
+                "spec": [
+                  {
+                    "name": "formula",
+                    "type": "text",
+                    "label": "Formula"
+                  },
+                  {
+                    "name": "formulaLocal",
+                    "type": "text",
+                    "label": "Formula Local"
+                  },
+                  {
+                    "name": "numberFormat",
+                    "type": "text",
+                    "label": "Number Format"
+                  },
+                  {
+                    "name": "text",
+                    "type": "text",
+                    "label": "Text"
+                  },
+                  {
+                    "name": "value",
+                    "type": "text",
+                    "label": "Value"
+                  },
+                  {
+                    "name": "valueType",
+                    "type": "text",
+                    "label": "Value Type"
+                  }
+                ]
+              },
+              {
+                "label": "(E): Selling Price",
+                "name": "e",
+                "type": "collection",
+                "spec": [
+                  {
+                    "name": "formula",
+                    "type": "text",
+                    "label": "Formula"
+                  },
+                  {
+                    "name": "formulaLocal",
+                    "type": "text",
+                    "label": "Formula Local"
+                  },
+                  {
+                    "name": "numberFormat",
+                    "type": "text",
+                    "label": "Number Format"
+                  },
+                  {
+                    "name": "text",
+                    "type": "text",
+                    "label": "Text"
+                  },
+                  {
+                    "name": "value",
+                    "type": "text",
+                    "label": "Value"
+                  },
+                  {
+                    "name": "valueType",
+                    "type": "text",
+                    "label": "Value Type"
+                  }
+                ]
+              },
+              {
+                "label": "(F): Stock",
+                "name": "f",
+                "type": "collection",
+                "spec": [
+                  {
+                    "name": "formula",
+                    "type": "text",
+                    "label": "Formula"
+                  },
+                  {
+                    "name": "formulaLocal",
+                    "type": "text",
+                    "label": "Formula Local"
+                  },
+                  {
+                    "name": "numberFormat",
+                    "type": "text",
+                    "label": "Number Format"
+                  },
+                  {
+                    "name": "text",
+                    "type": "text",
+                    "label": "Text"
+                  },
+                  {
+                    "name": "value",
+                    "type": "text",
+                    "label": "Value"
+                  },
+                  {
+                    "name": "valueType",
+                    "type": "text",
+                    "label": "Value Type"
+                  }
+                ]
+              },
+              {
+                "label": "(G): Reorder Level",
+                "name": "g",
+                "type": "collection",
+                "spec": [
+                  {
+                    "name": "formula",
+                    "type": "text",
+                    "label": "Formula"
+                  },
+                  {
+                    "name": "formulaLocal",
+                    "type": "text",
+                    "label": "Formula Local"
+                  },
+                  {
+                    "name": "numberFormat",
+                    "type": "text",
+                    "label": "Number Format"
+                  },
+                  {
+                    "name": "text",
+                    "type": "text",
+                    "label": "Text"
+                  },
+                  {
+                    "name": "value",
+                    "type": "text",
+                    "label": "Value"
+                  },
+                  {
+                    "name": "valueType",
+                    "type": "text",
+                    "label": "Value Type"
+                  }
+                ]
+              },
+              {
+                "label": "(H): Stock Status",
+                "name": "h",
+                "type": "collection",
+                "spec": [
+                  {
+                    "name": "formula",
+                    "type": "text",
+                    "label": "Formula"
+                  },
+                  {
+                    "name": "formulaLocal",
+                    "type": "text",
+                    "label": "Formula Local"
+                  },
+                  {
+                    "name": "numberFormat",
+                    "type": "text",
+                    "label": "Number Format"
+                  },
+                  {
+                    "name": "text",
+                    "type": "text",
+                    "label": "Text"
+                  },
+                  {
+                    "name": "value",
+                    "type": "text",
+                    "label": "Value"
+                  },
+                  {
+                    "name": "valueType",
+                    "type": "text",
+                    "label": "Value Type"
+                  }
+                ]
+              },
+              {
+                "label": "(I): Inventory Value",
+                "name": "i",
+                "type": "collection",
+                "spec": [
+                  {
+                    "name": "formula",
+                    "type": "text",
+                    "label": "Formula"
+                  },
+                  {
+                    "name": "formulaLocal",
+                    "type": "text",
+                    "label": "Formula Local"
+                  },
+                  {
+                    "name": "numberFormat",
+                    "type": "text",
+                    "label": "Number Format"
+                  },
+                  {
+                    "name": "text",
+                    "type": "text",
+                    "label": "Text"
+                  },
+                  {
+                    "name": "value",
+                    "type": "text",
+                    "label": "Value"
+                  },
+                  {
+                    "name": "valueType",
+                    "type": "text",
+                    "label": "Value Type"
+                  }
+                ]
+              },
+              {
+                "label": "(J): Last Alert Date",
+                "name": "j",
+                "type": "collection",
+                "spec": [
+                  {
+                    "name": "formula",
+                    "type": "text",
+                    "label": "Formula"
+                  },
+                  {
+                    "name": "formulaLocal",
+                    "type": "text",
+                    "label": "Formula Local"
+                  },
+                  {
+                    "name": "numberFormat",
+                    "type": "text",
+                    "label": "Number Format"
+                  },
+                  {
+                    "name": "text",
+                    "type": "text",
+                    "label": "Text"
+                  },
+                  {
+                    "name": "value",
+                    "type": "text",
+                    "label": "Value"
+                  },
+                  {
+                    "name": "valueType",
+                    "type": "text",
+                    "label": "Value Type"
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "id": 2,
+      "module": "google-email:sendAnEmail",
+      "version": 4,
+      "parameters": {},
+      "filter": {
+        "name": "Low Stock Alert",
+        "conditions": [
+          [
+            {
+              "a": "{{6.row.f.value}}",
+              "o": "number:lessorequal",
+              "b": "{{6.row.g.value}}"
+            },
+            {
+              "a": "{{6.row.j.text}}",
+              "o": "text:notequal",
+              "b": "{{formatDate(now; \"M/D/YYYY\"; \"Asia/Qatar\")}}"
+            }
+          ]
+        ]
+      },
+      "mapper": {
+        "to": [
+          "your-email@example.com"
+        ],
+        "subject": "🚨 Low Stock Alert - Smart Inventory System",
+        "bodyType": "rawHtml",
+        "content": "<h2>🚨 LOW STOCK ALERT!</h2>\r\n\r\n<p><strong>Product Name:</strong> {{6.row.b.value}}</p>\r\n<p><strong>Product ID:</strong>{{6.row.a.value}}</p>\r\n<p><strong>Current Stock:</strong>{{6.row.f.value}}</p>\r\n<p><strong>Reorder Level:</strong> {{6.row.g.value}}</p>\r\n\r\n<hr>\r\n\r\n<p><strong>Action Required:</strong> Please restock this product.</p>\r\n<p>Smart Inventory Management System</p>"
+      },
+      "metadata": {
+        "designer": {
+          "x": 630,
+          "y": 137
+        },
+        "setupValidation": {
+          "version": 1,
+          "configuration": "badfd5e6465ab439",
+          "result": {
+            "valid": true,
+            "fields": []
+          }
+        },
+        "restore": {
+          "parameters": {},
+          "expect": {
+            "to": {
+              "mode": "chose",
+              "items": [
+                null
+              ]
+            },
+            "bodyType": {
+              "label": "Raw HTML"
+            },
+            "attachments": {
+              "mode": "chose"
+            },
+            "from": {
+              "mode": "chose"
+            },
+            "cc": {
+              "mode": "chose"
+            },
+            "bcc": {
+              "mode": "chose"
+            },
+            "emailHeaders": {
+              "mode": "chose"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "__IMTCONN__",
+            "type": "account:google-email",
+            "label": "Connection",
+            "required": true
+          }
+        ],
+        "expect": [
+          {
+            "name": "to",
+            "type": "array",
+            "label": "To",
+            "required": true,
+            "spec": {
+              "type": "email",
+              "label": "Recipient email address",
+              "required": true,
+              "validate": true,
+              "name": "value"
+            }
+          },
+          {
+            "name": "subject",
+            "type": "text",
+            "label": "Subject"
+          },
+          {
+            "name": "bodyType",
+            "type": "select",
+            "label": "Body type",
+            "required": true,
+            "validate": {
+              "enum": [
+                "rawHtml",
+                "collection"
+              ]
+            }
+          },
+          {
+            "name": "attachments",
+            "type": "array",
+            "label": "Attachments",
+            "spec": {
+              "spec": [
+                {
+                  "name": "filename",
+                  "type": "filename",
+                  "label": "File name",
+                  "required": true,
+                  "semantic": "file:name"
+                },
+                {
+                  "name": "data",
+                  "type": "buffer",
+                  "label": "Data",
+                  "required": true,
+                  "semantic": "file:data"
+                }
+              ],
+              "type": "collection",
+              "label": "Attachment",
+              "name": "value"
+            }
+          },
+          {
+            "name": "from",
+            "type": "select",
+            "label": "From"
+          },
+          {
+            "name": "cc",
+            "type": "array",
+            "label": "CC recipients",
+            "spec": {
+              "type": "email",
+              "label": "Recipient email address",
+              "name": "value"
+            }
+          },
+          {
+            "name": "bcc",
+            "type": "array",
+            "label": "BCC recipients",
+            "spec": {
+              "type": "email",
+              "label": "Recipient email address",
+              "name": "value"
+            }
+          },
+          {
+            "name": "emailHeaders",
+            "type": "array",
+            "label": "Additional email headers",
+            "spec": {
+              "spec": [
+                {
+                  "name": "key",
+                  "type": "text",
+                  "label": "Key",
+                  "required": true
+                },
+                {
+                  "name": "value",
+                  "type": "text",
+                  "label": "Value"
+                }
+              ],
+              "type": "collection",
+              "label": "Email header",
+              "name": "value"
+            }
+          },
+          {
+            "name": "content",
+            "type": "text",
+            "label": "Content"
+          }
+        ]
+      }
+    },
+    {
+      "id": 9,
+      "module": "microsoft-excel:updateAWorksheetRow",
+      "version": 2,
+      "parameters": {},
+      "mapper": {
+        "select": "list",
+        "selectB": "my",
+        "workbook": "/Smart Inventory System.xlsx",
+        "worksheet": "Products",
+        "valueType": "values",
+        "id": "{{6.id}}",
+        "row": {
+          "9": "{{formatDate(now; \"M/D/YYYY\"; \"Asia/Qatar\")}}"
+        }
+      },
+      "metadata": {
+        "designer": {
+          "x": 917,
+          "y": 131
+        },
+        "setupValidation": {
+          "version": 1,
+          "configuration": "6ea591747e065bf9",
+          "result": {
+            "valid": true,
+            "fields": []
+          }
+        },
+        "restore": {
+          "parameters": {},
+          "expect": {
+            "select": {
+              "label": "Select from the list"
+            },
+            "selectB": {
+              "label": "My Drive"
+            },
+            "workbook": {
+              "path": [
+                "Smart Inventory System.xlsx"
+              ]
+            },
+            "worksheet": {
+              "mode": "chose",
+              "label": "Products"
+            },
+            "valueType": {
+              "mode": "chose",
+              "label": "Values"
+            },
+            "id": {
+              "mode": "edit"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "__IMTCONN__",
+            "type": "account:azure",
+            "label": "Connection",
+            "required": true
+          }
+        ],
+        "expect": [
+          {
+            "name": "select",
+            "type": "select",
+            "label": "Select a method",
+            "required": true,
+            "validate": {
+              "enum": [
+                "map",
+                "list"
+              ]
+            }
+          },
+          {
+            "name": "selectB",
+            "type": "select",
+            "label": "Choose your OneDrive location",
+            "required": true,
+            "validate": {
+              "enum": [
+                "my",
+                "site",
+                "group"
+              ]
+            }
+          },
+          {
+            "name": "workbook",
+            "type": "file",
+            "label": "Workbook",
+            "required": true
+          },
+          {
+            "name": "worksheet",
+            "type": "select",
+            "label": "Worksheet name",
+            "required": true
+          },
+          {
+            "name": "valueType",
+            "type": "select",
+            "label": "Type of values being entered",
+            "required": true,
+            "validate": {
+              "enum": [
+                "formulas",
+                "formulasLocal",
+                "values"
+              ]
+            }
+          },
+          {
+            "name": "id",
+            "type": "select",
+            "label": "Row ID",
+            "required": true
+          },
+          {
+            "name": "row",
+            "type": "collection",
+            "label": "Row",
+            "spec": [
+              {
+                "name": "0",
+                "type": "text",
+                "label": "(A): Product ID"
+              },
+              {
+                "name": "1",
+                "type": "text",
+                "label": "(B): Product Name"
+              },
+              {
+                "name": "2",
+                "type": "text",
+                "label": "(C): Category"
+              },
+              {
+                "name": "3",
+                "type": "text",
+                "label": "(D): Cost"
+              },
+              {
+                "name": "4",
+                "type": "text",
+                "label": "(E): Selling Price"
+              },
+              {
+                "name": "5",
+                "type": "text",
+                "label": "(F): Stock"
+              },
+              {
+                "name": "6",
+                "type": "text",
+                "label": "(G): Reorder Level"
+              },
+              {
+                "name": "7",
+                "type": "text",
+                "label": "(H): Stock Status"
+              },
+              {
+                "name": "8",
+                "type": "text",
+                "label": "(I): Inventory Value"
+              },
+              {
+                "name": "9",
+                "type": "text",
+                "label": "(J): Last Alert Date"
+              }
+            ]
+          }
+        ],
+        "interface": [
+          {
+            "name": "id",
+            "type": "text",
+            "label": "Row ID"
+          },
+          {
+            "name": "row",
+            "type": "collection",
+            "label": "Row",
+            "spec": [
+              {
+                "label": "(A): Product ID",
+                "name": "a",
+                "type": "collection",
+                "spec": [
+                  {
+                    "name": "formula",
+                    "type": "text",
+                    "label": "Formula"
+                  },
+                  {
+                    "name": "formulaLocal",
+                    "type": "text",
+                    "label": "Formula Local"
+                  },
+                  {
+                    "name": "numberFormat",
+                    "type": "text",
+                    "label": "Number Format"
+                  },
+                  {
+                    "name": "text",
+                    "type": "text",
+                    "label": "Text"
+                  },
+                  {
+                    "name": "value",
+                    "type": "text",
+                    "label": "Value"
+                  },
+                  {
+                    "name": "valueType",
+                    "type": "text",
+                    "label": "Value Type"
+                  }
+                ]
+              },
+              {
+                "label": "(B): Product Name",
+                "name": "b",
+                "type": "collection",
+                "spec": [
+                  {
+                    "name": "formula",
+                    "type": "text",
+                    "label": "Formula"
+                  },
+                  {
+                    "name": "formulaLocal",
+                    "type": "text",
+                    "label": "Formula Local"
+                  },
+                  {
+                    "name": "numberFormat",
+                    "type": "text",
+                    "label": "Number Format"
+                  },
+                  {
+                    "name": "text",
+                    "type": "text",
+                    "label": "Text"
+                  },
+                  {
+                    "name": "value",
+                    "type": "text",
+                    "label": "Value"
+                  },
+                  {
+                    "name": "valueType",
+                    "type": "text",
+                    "label": "Value Type"
+                  }
+                ]
+              },
+              {
+                "label": "(C): Category",
+                "name": "c",
+                "type": "collection",
+                "spec": [
+                  {
+                    "name": "formula",
+                    "type": "text",
+                    "label": "Formula"
+                  },
+                  {
+                    "name": "formulaLocal",
+                    "type": "text",
+                    "label": "Formula Local"
+                  },
+                  {
+                    "name": "numberFormat",
+                    "type": "text",
+                    "label": "Number Format"
+                  },
+                  {
+                    "name": "text",
+                    "type": "text",
+                    "label": "Text"
+                  },
+                  {
+                    "name": "value",
+                    "type": "text",
+                    "label": "Value"
+                  },
+                  {
+                    "name": "valueType",
+                    "type": "text",
+                    "label": "Value Type"
+                  }
+                ]
+              },
+              {
+                "label": "(D): Cost",
+                "name": "d",
+                "type": "collection",
+                "spec": [
+                  {
+                    "name": "formula",
+                    "type": "text",
+                    "label": "Formula"
+                  },
+                  {
+                    "name": "formulaLocal",
+                    "type": "text",
+                    "label": "Formula Local"
+                  },
+                  {
+                    "name": "numberFormat",
+                    "type": "text",
+                    "label": "Number Format"
+                  },
+                  {
+                    "name": "text",
+                    "type": "text",
+                    "label": "Text"
+                  },
+                  {
+                    "name": "value",
+                    "type": "text",
+                    "label": "Value"
+                  },
+                  {
+                    "name": "valueType",
+                    "type": "text",
+                    "label": "Value Type"
+                  }
+                ]
+              },
+              {
+                "label": "(E): Selling Price",
+                "name": "e",
+                "type": "collection",
+                "spec": [
+                  {
+                    "name": "formula",
+                    "type": "text",
+                    "label": "Formula"
+                  },
+                  {
+                    "name": "formulaLocal",
+                    "type": "text",
+                    "label": "Formula Local"
+                  },
+                  {
+                    "name": "numberFormat",
+                    "type": "text",
+                    "label": "Number Format"
+                  },
+                  {
+                    "name": "text",
+                    "type": "text",
+                    "label": "Text"
+                  },
+                  {
+                    "name": "value",
+                    "type": "text",
+                    "label": "Value"
+                  },
+                  {
+                    "name": "valueType",
+                    "type": "text",
+                    "label": "Value Type"
+                  }
+                ]
+              },
+              {
+                "label": "(F): Stock",
+                "name": "f",
+                "type": "collection",
+                "spec": [
+                  {
+                    "name": "formula",
+                    "type": "text",
+                    "label": "Formula"
+                  },
+                  {
+                    "name": "formulaLocal",
+                    "type": "text",
+                    "label": "Formula Local"
+                  },
+                  {
+                    "name": "numberFormat",
+                    "type": "text",
+                    "label": "Number Format"
+                  },
+                  {
+                    "name": "text",
+                    "type": "text",
+                    "label": "Text"
+                  },
+                  {
+                    "name": "value",
+                    "type": "text",
+                    "label": "Value"
+                  },
+                  {
+                    "name": "valueType",
+                    "type": "text",
+                    "label": "Value Type"
+                  }
+                ]
+              },
+              {
+                "label": "(G): Reorder Level",
+                "name": "g",
+                "type": "collection",
+                "spec": [
+                  {
+                    "name": "formula",
+                    "type": "text",
+                    "label": "Formula"
+                  },
+                  {
+                    "name": "formulaLocal",
+                    "type": "text",
+                    "label": "Formula Local"
+                  },
+                  {
+                    "name": "numberFormat",
+                    "type": "text",
+                    "label": "Number Format"
+                  },
+                  {
+                    "name": "text",
+                    "type": "text",
+                    "label": "Text"
+                  },
+                  {
+                    "name": "value",
+                    "type": "text",
+                    "label": "Value"
+                  },
+                  {
+                    "name": "valueType",
+                    "type": "text",
+                    "label": "Value Type"
+                  }
+                ]
+              },
+              {
+                "label": "(H): Stock Status",
+                "name": "h",
+                "type": "collection",
+                "spec": [
+                  {
+                    "name": "formula",
+                    "type": "text",
+                    "label": "Formula"
+                  },
+                  {
+                    "name": "formulaLocal",
+                    "type": "text",
+                    "label": "Formula Local"
+                  },
+                  {
+                    "name": "numberFormat",
+                    "type": "text",
+                    "label": "Number Format"
+                  },
+                  {
+                    "name": "text",
+                    "type": "text",
+                    "label": "Text"
+                  },
+                  {
+                    "name": "value",
+                    "type": "text",
+                    "label": "Value"
+                  },
+                  {
+                    "name": "valueType",
+                    "type": "text",
+                    "label": "Value Type"
+                  }
+                ]
+              },
+              {
+                "label": "(I): Inventory Value",
+                "name": "i",
+                "type": "collection",
+                "spec": [
+                  {
+                    "name": "formula",
+                    "type": "text",
+                    "label": "Formula"
+                  },
+                  {
+                    "name": "formulaLocal",
+                    "type": "text",
+                    "label": "Formula Local"
+                  },
+                  {
+                    "name": "numberFormat",
+                    "type": "text",
+                    "label": "Number Format"
+                  },
+                  {
+                    "name": "text",
+                    "type": "text",
+                    "label": "Text"
+                  },
+                  {
+                    "name": "value",
+                    "type": "text",
+                    "label": "Value"
+                  },
+                  {
+                    "name": "valueType",
+                    "type": "text",
+                    "label": "Value Type"
+                  }
+                ]
+              },
+              {
+                "label": "(J): Last Alert Date",
+                "name": "j",
+                "type": "collection",
+                "spec": [
+                  {
+                    "name": "formula",
+                    "type": "text",
+                    "label": "Formula"
+                  },
+                  {
+                    "name": "formulaLocal",
+                    "type": "text",
+                    "label": "Formula Local"
+                  },
+                  {
+                    "name": "numberFormat",
+                    "type": "text",
+                    "label": "Number Format"
+                  },
+                  {
+                    "name": "text",
+                    "type": "text",
+                    "label": "Text"
+                  },
+                  {
+                    "name": "value",
+                    "type": "text",
+                    "label": "Value"
+                  },
+                  {
+                    "name": "valueType",
+                    "type": "text",
+                    "label": "Value Type"
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      }
+    }
+  ],
+  "metadata": {
+    "instant": false,
+    "version": 1,
+    "scenario": {
+      "roundtrips": 1,
+      "maxErrors": 3,
+      "autoCommit": true,
+      "autoCommitTriggerLast": true,
+      "sequential": false,
+      "slots": null,
+      "confidential": false,
+      "dataloss": false,
+      "dlq": false,
+      "freshVariables": false
+    },
+    "designer": {
+      "orphans": []
+    },
+    "zone": "eu1.make.com",
+    "notes": []
+  }
+}
